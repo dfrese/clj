@@ -1,4 +1,4 @@
-(defproject de.dfrese/clojure-utils "0.1.0-SNAPSHOT"
+(defproject dfrese/clojure-utils "0.1.0-SNAPSHOT"
   :description "General purpose utils for Clojure and ClojureScript."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
