@@ -10,7 +10,14 @@
   (:require [clojure.core :as c])
   (:refer-clojure :exclude [partial constantly comp juxt identity]))
 
-(defrecord ^:no-doc F
+(defrecord ^:no-doc F-1
+  [base base-arg]
+  #?@(:cljs [IFn
+             (-invoke [this a] (base base-arg a))])
+  #?@(:clj [clojure.lang.IFn
+            (invoke [this a] (base base-arg a))]))
+
+(defrecord ^:no-doc F-n
   [base base-arg]
   #?@(:cljs [IFn
              (-invoke [this & args] (base base-arg args))])
@@ -36,7 +43,7 @@
    (if (f? partial- f)
      (update f :base-arg (fn [[f args0]]
                            [f (concat args0 args)]))
-     (F. partial- [f args]))))
+     (F-n. partial- [f args]))))
 
 (defn- constantly- [x args]
   x)
@@ -44,7 +51,7 @@
 (defn constantly
   "Returns a function that takes any number of arguments and returns x."
   [x]
-  (F. constantly- x))
+  (F-n. constantly- x))
 
 (defn- comp- [fs args]
   (apply (apply c/comp fs) args))
@@ -63,7 +70,7 @@
   ([f] f)
   ([f & fs]
    ;; removing everything after a constantly - would allow no impurity.
-   (F. comp- (mapcat decomp (cons f fs)))))
+   (F-n. comp- (mapcat decomp (cons f fs)))))
 
 (defn- juxt- [fs args]
   (apply vector (map #(apply % args) fs)))
@@ -73,13 +80,25 @@
   of those fns.  The returned fn takes a variable number of args, and
   returns a vector containing the result of applying each fn to the
   args (left-to-right).
+
   `((juxt a b c) x) => [(a x) (b x) (c x)]`"
   [f & fs]
   ;; TODO: if all are const, the result is const?
-  (F. juxt- (cons f fs)))
+  (F-n. juxt- (cons f fs)))
 
 (def ^{:doc "Returns its argument."} identity c/identity)
 
 ;; TODO? fnil some-fn every-pred
 
 ;; comp? - compose, but short-circuit on nil
+
+(defn- fsome- [f a]
+  (when (some? a) (f a)))
+
+(defn fsome
+  "Returns a function of one argument, which calls `f` only when that
+   argument is not nil and returns its result, and nil otherwise.
+  
+  `(when (some? a) (f a))`."
+  [f]
+  (F-1. fsome- f))

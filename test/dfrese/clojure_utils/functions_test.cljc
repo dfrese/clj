@@ -26,3 +26,8 @@
 
 (deftest identity-test
   (identical? f/identity identity))
+
+(deftest fsome-test
+  (is (nil? ((f/fsome #(assert false)) nil)))
+  (is (= 42 ((f/fsome inc) 41)))
+  (is (= (f/fsome inc) (f/fsome inc))))
