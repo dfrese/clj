@@ -1,4 +1,4 @@
-(ns dfrese.clojure-utils.functions
+(ns dfrese.clj.functions
   "Higher order functions that can replace the built-in clojure functions of the same name, but they are transparent and comparable.
 
    Unlike with the built-in functions, this means for example:

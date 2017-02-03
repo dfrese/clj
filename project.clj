@@ -1,5 +1,5 @@
-(defproject dfrese/clojure-utils "0.1.0-SNAPSHOT"
-  :description "General purpose utils for Clojure and ClojureScript."
+(defproject dfrese/clj "0.1.0-SNAPSHOT"
+  :description "General purpose additions to Clojure and ClojureScript."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -17,7 +17,7 @@
              :compiler {:output-to "target/test.js"
                         :output-dir "target"
                         :optimizations :none
-                        :main dfrese.clojure-utils.runner}}}}
+                        :main dfrese.clj.runner}}}}
 
   :doo {:build "test"}
 

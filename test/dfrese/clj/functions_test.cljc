@@ -1,7 +1,7 @@
-(ns dfrese.clojure-utils.functions-test
+(ns dfrese.clj.functions-test
   (:require #?(:cljs [cljs.test :refer-macros [deftest is testing]])
             #?(:clj [clojure.test :refer [deftest is testing]])
-            [dfrese.clojure-utils.functions :as f]))
+            [dfrese.clj.functions :as f]))
 
 (deftest partial-test
   (is (= 44 ((f/partial + 42) 2)))
