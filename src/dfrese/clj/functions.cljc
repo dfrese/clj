@@ -5,7 +5,7 @@
 
    `(= (partial f x) (partial f x))`  => true
 
-   `(= (comp f (comp g h)) (comp (comp f g) h))`  => true
+   `(= (comp f g h) (comp f g h))`  => true
   "
   (:require [clojure.core :as c])
   (:refer-clojure :exclude [partial constantly comp juxt identity]))

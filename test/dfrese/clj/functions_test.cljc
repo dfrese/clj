@@ -17,8 +17,7 @@
 (deftest comp-test
   (is (= 42 ((f/comp :a :b) {:b {:a 42}})))
   (is (= (f/comp :a :b) (f/comp :a :b)))
-  (is (not= (f/comp :a :b) (f/comp :b :a)))
-  (is (= (f/comp :a (f/comp :b :c)) (f/comp (f/comp :a :b) :c))))
+  (is (not= (f/comp :a :b) (f/comp :b :a))))
 
 (deftest juxt-test
   (is (= [42 43] ((f/juxt identity inc) 42)))
