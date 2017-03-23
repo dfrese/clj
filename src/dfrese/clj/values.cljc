@@ -1,12 +1,14 @@
 (ns dfrese.clj.values
   (:require [dfrese.clj.functions :as f]))
 
-(defrecord ^:no-doc Tagged [value tag])
+;; TODO: look at clojure.core.match
 
-(defn tag
+(defrecord ^:no-doc Tagged [tag value])
+
+(defn tagged
   "Returns `v` tagged with `tag`."
   [tag v]
-  (Tagged. v tag))
+  (Tagged. tag v))
 
 (defn tagged?
   "Returns true if `v` is a tagged value."
@@ -16,7 +18,7 @@
 (defn tagger
   "Returns a function that tags any value with tag `t`."
   [t]
-  (f/partial tag t))
+  (f/partial tagged t))
 
 (defn untag
   "Returns a tuple `[tag value]`, if `v` is a [[tagged?]] value, or `[v nil]` otherwise.

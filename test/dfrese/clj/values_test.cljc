@@ -4,17 +4,17 @@
             [dfrese.clj.values :as v]))
 
 (deftest tags-test
-  (is (= (v/tag :a 42) (v/tag :a 42)))
-  (is (not= (v/tag :a 42) (v/tag :a 21)))
-  (is (not= (v/tag :a 42) (v/tag :b 42)))
+  (is (= (v/tagged :a 42) (v/tagged :a 42)))
+  (is (not= (v/tagged :a 42) (v/tagged :a 21)))
+  (is (not= (v/tagged :a 42) (v/tagged :b 42)))
   
-  (is (v/tagged? (v/tag :a 42)))
+  (is (v/tagged? (v/tagged :a 42)))
   (is (not (v/tagged? 42)))
 
   (is (= (v/tagger :a) (v/tagger :a)))
   (is (not= (v/tagger :b) (v/tagger :a)))
-  (is (= ((v/tagger :b) 42) (v/tag :b 42)))
+  (is (= ((v/tagger :b) 42) (v/tagged :b 42)))
 
-  (is (= [:a 42] (v/untag (v/tag :a 42))))
+  (is (= [:a 42] (v/untag (v/tagged :a 42))))
   (is (= [42 nil] (v/untag 42)))
   )
